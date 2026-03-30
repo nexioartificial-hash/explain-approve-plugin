@@ -19,26 +19,128 @@ Cada vez que Claude Code va a hacer algo (correr un comando, editar un archivo o
 Cuando Claude va a correr un comando, vas a ver algo asi antes de aprobarlo:
 
 ```
-📋 Comando: git pull origin main
-💬 Que hace: Hace un git pull (descarga los ultimos cambios del
-   repositorio remoto, que es donde se guarda el codigo en la nube)
-   desde la rama main para actualizar tu proyecto local.
-⚠️ Riesgo: Bajo — es un comando de lectura, no modifica ningun archivo.
+📋 Comando: git status
+💬 Que hace: Muestra el estado del repositorio Git (el sistema que
+   guarda el historial de cambios de tu codigo) — archivos modificados,
+   nuevos (untracked) y staged (listos para guardar).
+⚠️ Riesgo: Bajo — solo lectura, no modifica nada.
 ```
 
 ## Instalacion
 
-Correr estos dos comandos en la terminal:
+### Paso 1: Instalar el plugin
 
 ```bash
-# Paso 1: Agregar el marketplace (solo la primera vez)
+# Agregar el marketplace (solo la primera vez)
 claude plugin marketplace add https://github.com/nexioartificial-hash/explain-approve-plugin.git
 
-# Paso 2: Instalar el plugin
+# Instalar el plugin
 claude plugin install explain-approve
 ```
 
-Abri una nueva sesion de Claude Code y listo, ya funciona.
+### Paso 2: Crear el archivo de instrucciones globales
+
+Crea el archivo `~/.claude/CLAUDE.md` con este contenido:
+
+```markdown
+# Instrucciones globales
+
+## Explicar antes de actuar
+
+ANTES de cada Bash, Edit o Write, SIEMPRE explicar que vas a hacer EN ESPAÑOL con este formato:
+
+**Para Bash:**
+📋 Comando: [el comando exacto]
+💬 Que hace: [explicacion con terminos tecnicos entre parentesis]
+⚠️ Riesgo: [bajo/medio/alto] — [consecuencia]
+
+**Para Edit:**
+📄 Archivo: [nombre]
+✏️ Que cambia: [explicacion con terminos tecnicos entre parentesis]
+⚠️ Riesgo: [bajo/medio/alto]
+
+**Para Write:**
+📄 Archivo nuevo: [nombre]
+🆕 Para que sirve: [explicacion con terminos tecnicos entre parentesis]
+⚠️ Riesgo: [bajo/medio/alto]
+
+REGLAS:
+- NUNCA omitir la explicacion, ni siquiera para comandos simples como git status
+- Usar SIEMPRE el termino tecnico real y explicar entre parentesis la primera vez
+- Si el comando tiene flags (-r, --force), explicar que hace cada uno
+```
+
+**En Windows (PowerShell):**
+```powershell
+# Copia y pega esto en PowerShell para crear el archivo automaticamente:
+$content = @"
+# Instrucciones globales
+
+## Explicar antes de actuar
+
+ANTES de cada Bash, Edit o Write, SIEMPRE explicar que vas a hacer EN ESPAÑOL con este formato:
+
+**Para Bash:**
+📋 Comando: [el comando exacto]
+💬 Que hace: [explicacion con terminos tecnicos entre parentesis]
+⚠️ Riesgo: [bajo/medio/alto] — [consecuencia]
+
+**Para Edit:**
+📄 Archivo: [nombre]
+✏️ Que cambia: [explicacion con terminos tecnicos entre parentesis]
+⚠️ Riesgo: [bajo/medio/alto]
+
+**Para Write:**
+📄 Archivo nuevo: [nombre]
+🆕 Para que sirve: [explicacion con terminos tecnicos entre parentesis]
+⚠️ Riesgo: [bajo/medio/alto]
+
+REGLAS:
+- NUNCA omitir la explicacion, ni siquiera para comandos simples como git status
+- Usar SIEMPRE el termino tecnico real y explicar entre parentesis la primera vez
+- Si el comando tiene flags (-r, --force), explicar que hace cada uno
+"@
+$content | Out-File -FilePath "$env:USERPROFILE\.claude\CLAUDE.md" -Encoding utf8
+```
+
+**En Mac/Linux:**
+```bash
+cat > ~/.claude/CLAUDE.md << 'EOF'
+# Instrucciones globales
+
+## Explicar antes de actuar
+
+ANTES de cada Bash, Edit o Write, SIEMPRE explicar que vas a hacer EN ESPAÑOL con este formato:
+
+**Para Bash:**
+📋 Comando: [el comando exacto]
+💬 Que hace: [explicacion con terminos tecnicos entre parentesis]
+⚠️ Riesgo: [bajo/medio/alto] — [consecuencia]
+
+**Para Edit:**
+📄 Archivo: [nombre]
+✏️ Que cambia: [explicacion con terminos tecnicos entre parentesis]
+⚠️ Riesgo: [bajo/medio/alto]
+
+**Para Write:**
+📄 Archivo nuevo: [nombre]
+🆕 Para que sirve: [explicacion con terminos tecnicos entre parentesis]
+⚠️ Riesgo: [bajo/medio/alto]
+
+REGLAS:
+- NUNCA omitir la explicacion, ni siquiera para comandos simples como git status
+- Usar SIEMPRE el termino tecnico real y explicar entre parentesis la primera vez
+- Si el comando tiene flags (-r, --force), explicar que hace cada uno
+EOF
+```
+
+### Paso 3: Abrir Claude Code
+
+```bash
+claude
+```
+
+Listo! Ya funciona.
 
 ## Actualizar a la ultima version
 
@@ -53,6 +155,8 @@ claude plugin install explain-approve
 ```bash
 claude plugin uninstall explain-approve
 ```
+
+Para quitar tambien las instrucciones globales, borra `~/.claude/CLAUDE.md` (o elimina la seccion "Explicar antes de actuar").
 
 ## Licencia
 
