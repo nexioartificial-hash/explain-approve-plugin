@@ -1,18 +1,24 @@
 {
   "description": "Explica cada accion en lenguaje accesible pero educativo antes de pedir aprobacion al usuario",
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start.js\""
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash|Edit|Write",
         "hooks": [
           {
-            "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/explain.js\"",
-            "timeout": 5
-          },
-          {
             "type": "prompt",
-            "prompt": "IMPORTANTE: Antes de esta accion, DEBES incluir una explicacion en español para el usuario que esta aprendiendo a programar. Usa los terminos tecnicos reales pero explicalos entre parentesis la primera vez. Formato: usa emojis 📋/📄 para el comando/archivo, 💬/✏️/🆕 para la explicacion, y ⚠️ para el nivel de riesgo (bajo/medio/alto).",
+            "prompt": "REGLA OBLIGATORIA: ANTES de cada Bash, Edit o Write, SIEMPRE incluí una explicacion en español con emojis (📋/📄 para comando/archivo, 💬/✏️/🆕 para la explicacion, ⚠️ para riesgo). Usa terminos tecnicos reales pero explicalos entre parentesis. NUNCA omitas la explicacion.",
             "timeout": 15
           }
         ]
