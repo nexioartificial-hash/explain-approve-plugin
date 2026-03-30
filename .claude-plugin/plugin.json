@@ -1,0 +1,21 @@
+{
+  "name": "explain-approve",
+  "version": "1.0.0",
+  "description": "Explica en lenguaje natural y simple cada accion antes de que el usuario la apruebe. Ideal para personas que estan aprendiendo a programar.",
+  "author": {
+    "name": "Livio",
+    "url": "https://github.com/livio"
+  },
+  "repository": "https://github.com/livio/explain-approve-plugin",
+  "license": "MIT",
+  "keywords": [
+    "explain",
+    "approval",
+    "beginner",
+    "learning",
+    "spanish",
+    "natural-language",
+    "hooks",
+    "pretooluse"
+  ]
+}

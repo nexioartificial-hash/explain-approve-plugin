@@ -1,0 +1,37 @@
+{
+  "description": "Explica cada accion en lenguaje natural antes de pedir aprobacion al usuario",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "El usuario esta aprendiendo a programar. Antes de que apruebe este comando de terminal, explicale EN ESPAÑOL que va a pasar, como si le hablaras a alguien sin experiencia tecnica.\n\nFormato OBLIGATORIO (usa exactamente estas lineas):\n\n📋 Comando: [el comando exacto en una linea de codigo]\n💬 Que hace: [explicacion simple en 1-2 oraciones. Usa analogias cotidianas. Ej: 'Esto es como abrir una carpeta para ver que hay adentro' o 'Esto instala las herramientas que el proyecto necesita para funcionar']\n⚠️ Riesgo: [bajo/medio/alto] — [si es reversible o tiene efectos permanentes. Ej: 'Bajo - solo mira informacion, no cambia nada' o 'Medio - modifica un archivo pero se puede deshacer']\n\nReglas: NO uses palabras como 'ejecutar', 'instancia', 'compilar', 'runtime', 'pipeline', 'parsear' sin explicarlas. Habla como le hablarias a un amigo que nunca programo.",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "El usuario esta aprendiendo a programar. Antes de que apruebe esta edicion de archivo, explicale EN ESPAÑOL que se va a cambiar.\n\nFormato OBLIGATORIO:\n\n📄 Archivo: [nombre del archivo]\n✏️ Que cambia: [explicacion simple de que parte del codigo se modifica y por que. Ej: 'Cambia el color del boton de azul a verde' o 'Agrega una validacion para que no se pueda enviar el formulario vacio']\n⚠️ Riesgo: [bajo/medio/alto] — [Ej: 'Bajo - es un cambio pequeno y se puede deshacer facilmente']\n\nReglas: NO uses jerga tecnica sin explicar. Describe el efecto visible para el usuario final cuando sea posible.",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "El usuario esta aprendiendo a programar. Antes de que apruebe la creacion de este archivo, explicale EN ESPAÑOL que se va a crear y para que sirve.\n\nFormato OBLIGATORIO:\n\n📄 Archivo nuevo: [nombre y ubicacion del archivo]\n🆕 Para que sirve: [explicacion simple. Ej: 'Crea una nueva pagina que va a mostrar la lista de pacientes' o 'Crea un archivo de configuracion que le dice al proyecto como conectarse a la base de datos']\n⚠️ Riesgo: [bajo/medio/alto] — [Ej: 'Bajo - es un archivo nuevo, no reemplaza nada existente']\n\nReglas: Explica para que sirve el archivo en el contexto del proyecto, no solo que tipo de archivo es.",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}
