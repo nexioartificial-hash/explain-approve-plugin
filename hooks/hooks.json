@@ -1,5 +1,5 @@
 {
-  "description": "Explica cada accion en lenguaje natural antes de pedir aprobacion al usuario",
+  "description": "Explica cada accion en lenguaje accesible pero educativo antes de pedir aprobacion al usuario",
   "hooks": {
     "PreToolUse": [
       {
@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "El usuario esta aprendiendo a programar. Antes de que apruebe este comando de terminal, explicale EN ESPAÑOL que va a pasar, como si le hablaras a alguien sin experiencia tecnica.\n\nFormato OBLIGATORIO (usa exactamente estas lineas):\n\n📋 Comando: [el comando exacto en una linea de codigo]\n💬 Que hace: [explicacion simple en 1-2 oraciones. Usa analogias cotidianas. Ej: 'Esto es como abrir una carpeta para ver que hay adentro' o 'Esto instala las herramientas que el proyecto necesita para funcionar']\n⚠️ Riesgo: [bajo/medio/alto] — [si es reversible o tiene efectos permanentes. Ej: 'Bajo - solo mira informacion, no cambia nada' o 'Medio - modifica un archivo pero se puede deshacer']\n\nReglas: NO uses palabras como 'ejecutar', 'instancia', 'compilar', 'runtime', 'pipeline', 'parsear' sin explicarlas. Habla como le hablarias a un amigo que nunca programo.",
+            "prompt": "El usuario esta aprendiendo a programar. Antes de que apruebe este comando de terminal, explicale EN ESPAÑOL que va a pasar. Usa un tono accesible pero educativo: incluí los terminos tecnicos correctos y explicalos brevemente entre parentesis la primera vez que aparecen.\n\nFormato OBLIGATORIO (usa exactamente estas lineas):\n\n📋 Comando: [el comando exacto en una linea de codigo]\n💬 Que hace: [explicacion en 1-3 oraciones. Usa el termino tecnico real y explica que significa entre parentesis. Ej: 'Hace un git pull (descarga los ultimos cambios del repositorio remoto, que es donde se guarda el codigo en la nube) para actualizar tu proyecto local' o 'Ejecuta npm install (el gestor de paquetes de Node.js descarga las dependencias, que son las librerias externas que tu proyecto necesita para funcionar)']\n⚠️ Riesgo: [bajo/medio/alto] — [consecuencia concreta. Ej: 'Bajo - es un comando de lectura, no modifica ningun archivo' o 'Medio - modifica archivos pero los cambios se pueden revertir con git']\n\nReglas:\n- Usa SIEMPRE el termino tecnico correcto, pero la primera vez que lo mencionas agregale una explicacion breve entre parentesis.\n- No simplifiques de mas: el objetivo es que el usuario aprenda el vocabulario real mientras entiende que pasa.\n- Si el comando tiene flags (como -r, --force), explica brevemente que hace cada uno.",
             "timeout": 15
           }
         ]
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "El usuario esta aprendiendo a programar. Antes de que apruebe esta edicion de archivo, explicale EN ESPAÑOL que se va a cambiar.\n\nFormato OBLIGATORIO:\n\n📄 Archivo: [nombre del archivo]\n✏️ Que cambia: [explicacion simple de que parte del codigo se modifica y por que. Ej: 'Cambia el color del boton de azul a verde' o 'Agrega una validacion para que no se pueda enviar el formulario vacio']\n⚠️ Riesgo: [bajo/medio/alto] — [Ej: 'Bajo - es un cambio pequeno y se puede deshacer facilmente']\n\nReglas: NO uses jerga tecnica sin explicar. Describe el efecto visible para el usuario final cuando sea posible.",
+            "prompt": "El usuario esta aprendiendo a programar. Antes de que apruebe esta edicion de archivo, explicale EN ESPAÑOL que se va a cambiar. Usa un tono accesible pero educativo: incluí los terminos tecnicos correctos y explicalos brevemente entre parentesis la primera vez.\n\nFormato OBLIGATORIO:\n\n📄 Archivo: [nombre del archivo]\n✏️ Que cambia: [explicacion de que parte del codigo se modifica y por que. Usa terminos reales con explicacion. Ej: 'Modifica el componente Button (un componente es una pieza reutilizable de la interfaz) para agregar una prop disabled (una propiedad que controla si el boton se puede clickear o no)' o 'Actualiza el handler del formulario (la funcion que se ejecuta cuando el usuario envia el formulario) para validar que el email no este vacio']\n👁️ Efecto visible: [que va a cambiar para el usuario final en la pantalla, si aplica]\n⚠️ Riesgo: [bajo/medio/alto] — [Ej: 'Bajo - es un cambio pequeno y se puede revertir con Ctrl+Z o git']\n\nReglas:\n- Usa SIEMPRE el termino tecnico correcto con explicacion entre parentesis la primera vez.\n- Menciona el nombre real de funciones, componentes o variables que se modifican.\n- Describe el efecto visible para el usuario final cuando sea posible.",
             "timeout": 15
           }
         ]
@@ -27,7 +27,7 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "El usuario esta aprendiendo a programar. Antes de que apruebe la creacion de este archivo, explicale EN ESPAÑOL que se va a crear y para que sirve.\n\nFormato OBLIGATORIO:\n\n📄 Archivo nuevo: [nombre y ubicacion del archivo]\n🆕 Para que sirve: [explicacion simple. Ej: 'Crea una nueva pagina que va a mostrar la lista de pacientes' o 'Crea un archivo de configuracion que le dice al proyecto como conectarse a la base de datos']\n⚠️ Riesgo: [bajo/medio/alto] — [Ej: 'Bajo - es un archivo nuevo, no reemplaza nada existente']\n\nReglas: Explica para que sirve el archivo en el contexto del proyecto, no solo que tipo de archivo es.",
+            "prompt": "El usuario esta aprendiendo a programar. Antes de que apruebe la creacion de este archivo, explicale EN ESPAÑOL que se va a crear y para que sirve. Usa un tono accesible pero educativo: incluí los terminos tecnicos correctos y explicalos brevemente entre parentesis la primera vez.\n\nFormato OBLIGATORIO:\n\n📄 Archivo nuevo: [nombre y ubicacion del archivo]\n🆕 Para que sirve: [explicacion con terminos reales. Ej: 'Crea un route handler (un archivo que define como el servidor responde cuando alguien visita una URL especifica) en /api/patients que devuelve la lista de pacientes desde la base de datos' o 'Crea un layout (una plantilla que envuelve a todas las paginas hijas y les da una estructura comun, como el menu lateral y el header) para la seccion del dashboard']\n🧩 Como encaja: [donde se ubica este archivo en la arquitectura del proyecto y con que otros archivos se relaciona]\n⚠️ Riesgo: [bajo/medio/alto] — [Ej: 'Bajo - es un archivo nuevo, no reemplaza nada existente']\n\nReglas:\n- Usa SIEMPRE el termino tecnico correcto con explicacion entre parentesis la primera vez.\n- Explica para que sirve el archivo en el contexto del proyecto, no solo que tipo de archivo es.\n- Menciona con que otros archivos o partes del proyecto se conecta.",
             "timeout": 15
           }
         ]
