@@ -1,0 +1,17 @@
+{
+  "name": "explain-approve-marketplace",
+  "owner": {
+    "name": "nexioartificial-hash",
+    "url": "https://github.com/nexioartificial-hash"
+  },
+  "plugins": [
+    {
+      "name": "explain-approve",
+      "source": "./",
+      "description": "Explica cada accion en español simple antes de aprobarla. Ideal para aprender a programar.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "keywords": ["explain", "approval", "beginner", "learning", "spanish"]
+    }
+  ]
+}
